@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DB:Login Form</title>
+		<link rel = "stylesheet" href = "mplogin.css">
+	</head>
+	
+	<body>
+		<div class = "container">
+			<div class = "form" >
+			<h1>ACCOUNT LOGIN</h1>
+				<form id = "loginform" class = "userinput" action = "mplogin.php" method = "POST">
+					<label for = "username" class = "fieldname" ><b>USERNAME</b> </label>
+						<input type = "text" class = "fieldinput" name = "user" id = "user" required>
+					<label for = "password" class = "fieldname" ><b>PASSWORD</b> </label>
+						<input type = "password" class = "fieldinput" name = "pass" id = "pass" required>
+					<button type="login" name = "logsubmit" class = "loginbtn"><b>LOGIN</b></button>
+					<a href="mpsignup.html">Don't have an account? Register here.</a>
+				</form>
+			</div>
+		</div>	
+	</body>
+</html>
+
