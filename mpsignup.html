@@ -2,18 +2,19 @@
 <html>
 	<head>
 		<title>DB:Signup Form</title>
-		<!-- <script src = "validate.js"></script>  -->	
+		<script src = "val.js"></script>
 		<link rel = "stylesheet" href = "mpsignup.css">
+		<title>Database</title>
 
 	</head>
-	
+	 
 	<body>
 		<div class = "container">
 		<div class = "form" >
 			<h1>ACCOUNT REGISTRATION</h1>
-			<div class="row">
-			<div class="column">
-				<form  id = "signupform" class = "userinput" action = "mpsignup.php" method = "POST">
+				<div class="row">
+				<div class="column">
+					<form  id = "signupform" class = "userinput" action = "mpsignup.php" method = "POST">
 					<label for = "lname" class = "fieldname" ><b>LAST NAME</b> </label>
 						<input type= "text" class = "fieldinput" name = "lName" id = "lName" required>
 					<label for = "fname" class = "fieldname" ><b>FIRST NAME</b> </label>
@@ -36,10 +37,8 @@
 					<label for="phone" class = "fieldname" ><b>MOBILE NUMBER</b> </label>
 						<input type="tel" class = "fieldinput" id="phone" name="phone" pattern="[[+]{1}[0-9]{11,14}" required>
 					<label for = "email" class = "fieldname" ><b>UE E-MAIL ADDRESS</b> </label>
-						<input type= "email" class = "fieldinput" name = "email" id = "email" required>					
-				</form>
-			<form  id = "signupform" class = "userinput" action = "mpsignup.php" method = "POST">		
-			</div>
+						<input type= "email" class = "fieldinput" name = "email" id = "email" required>							
+				</div>
 				<div class = "column">
 					<label for = "username" class = "fieldname" ><b>USERNAME</b> </label>
 						<input type = "text" class = "fieldinput" name = "user" id = "user" required>
@@ -57,7 +56,7 @@
 							vero eros et accumsan et iusto odio dignissim qui blandit praesent 
 							luptatum zzril delenit augue duis dolore te feugait nulla f
 							imperdiet doming id quod mazim placerat facer possim assum.</p>
-						<button type="signup" name = "signsubmit" class = "signbtn" onclick = "return dbValidate()"><b>REGISTER</b></button>
+						<button type="submit" name = "signsubmit" class = "signbtn" onclick = "return dbValidate()"><b>REGISTER</b></button>
 				</div>	
 			</form>	
 			</div>		
