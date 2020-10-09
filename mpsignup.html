@@ -4,7 +4,6 @@
 		<title>DB:Signup Form</title>
 		<script src = "val.js"></script>
 		<link rel = "stylesheet" href = "mpsignup.css">
-		<title>Database</title>
 
 	</head>
 	 
@@ -16,15 +15,15 @@
 				<div class="column">
 					<form  id = "signupform" class = "userinput" action = "mpsignup.php" method = "POST">
 					<label for = "lname" class = "fieldname" ><b>LAST NAME</b> </label>
-						<input type= "text" class = "fieldinput" name = "lName" id = "lName" required>
+						<input type= "text" class = "fieldinput" name = "lName" id = "lName" maxlength = "15" required>
 					<label for = "fname" class = "fieldname" ><b>FIRST NAME</b> </label>
-						<input type= "text" class = "fieldinput" name = "fName" id = "fName" required>
+						<input type= "text" class = "fieldinput" name = "fName" id = "fName" maxlength = "15" required>
 					<label for = "mname" class = "fieldname" ><b>MIDDLE INITIAL</b> </label>
-						<input type= "text" class = "fieldinput" name = "mName" size = "2" id = "mName" required>
+						<input type= "text" class = "fieldinput" name = "mName" id = "mName" maxlength = "2">
 					<label for = "studno" class = "fieldname" ><b>STUDENT NUMBER</b> </label>
-						<input type= "text" class = "fieldinput" name = "studno" id = "studno" required>
+						<input type= "text" class = "fieldinput" name = "studno" id = "studno" maxlength = "11" required>
 					<label for="year" type = "text" class = "fieldname"><b>YEAR LEVEL</b></label>
-							<select name = "yrlvl" class = "fieldinput" id = "yrlvl">
+							<select name = "yrlvl" class = "fieldinput" id = "yrlvl" required>
 								<option value = ""></option>
 								<option value="1">1 </option>
 								<option value="2">2 </option>
@@ -33,17 +32,17 @@
 								<option value="5">5 </option>
 							</select>
 					<label for = "birthday" class = "fieldname" ><b>BIRTH DATE</b> </label>
-						<input type="date" class = "fieldinput" name = "bday" id = "bday" >
+						<input type="date" class = "fieldinput" name = "bday" id = "bday" required>
 					<label for="phone" class = "fieldname" ><b>MOBILE NUMBER</b> </label>
-						<input type="tel" class = "fieldinput" id="phone" name="phone" pattern="[[+]{1}[0-9]{11,14}" required>
+						<input type="tel" class = "fieldinput" id="phone" name="phone" maxlength = "13" pattern="[[+]{1}[63]{2}[0-9]{10}" required>
 					<label for = "email" class = "fieldname" ><b>UE E-MAIL ADDRESS</b> </label>
 						<input type= "email" class = "fieldinput" name = "email" id = "email" required>							
 				</div>
 				<div class = "column">
 					<label for = "username" class = "fieldname" ><b>USERNAME</b> </label>
-						<input type = "text" class = "fieldinput" name = "user" id = "user" required>
+						<input type = "text" class = "fieldinput" name = "user" id = "user" maxlength = "15" required>
 					<label for = "password" class = "fieldname" ><b>PASSWORD</b> </label>
-						<input type="password" class = "fieldinput" name = "pass" id = "pass" required>
+						<input type="password" class = "fieldinput" name = "pass" id = "pass" maxlength = "20" required>
 					<label for = "pwdrpt" class = "fieldname" ><b>CONFIRM PASSWORD</b> </label>
 						<input type="password" class = "fieldinput" name = "passrpt" id = "passrpt" required>
 						<input type = "checkbox" class = "check"><span>TERMS AND CONDITIONS</span>
