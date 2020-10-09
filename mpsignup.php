@@ -13,6 +13,9 @@ if (isset($_POST['signsubmit'])) {
 	$studentNumber = $_POST['studno'];
 	$MobileNumber = $_POST['phone'];
 	$checkBox = $_POST['termsBox'];
+	$dateOfBirth = $_POST['bday'];
+	$yearLevel = $_POST['yrlvl'];
+
 	if(!isset($_POST['termsBox'])){
 		header("Location: mpsignup.html?error=uncheckedcheckbox");
 		exit();
@@ -26,7 +29,7 @@ if (isset($_POST['signsubmit'])) {
 		header("Location: mpsignup.html?error=invalidemail&uid=".$username);
 		exit();
 	}
-	else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
+	else if (!preg_match("/^[a-zA-Z-_]*$/", $username)) {
 		header("Location: mpsignup.html?error=invaliduid&email=".$ueEmail);
 		exit();
 	}
@@ -54,7 +57,7 @@ if (isset($_POST['signsubmit'])) {
 			}
 			else{
 
-				$sql = "INSERT INTO users (uidUsers, emailUsers, pwdUsers, firstnameUsers, lastnameUsers, middleinitialUsers, studNoUsers, mobileNoUsers) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				$sql = "INSERT INTO users (uidUsers, emailUsers, pwdUsers, firstnameUsers, lastnameUsers, middleinitialUsers, studNoUsers, mobileNoUsers, dobUsers, yrUsers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				$stmt = mysqli_stmt_init($conn);
 				if (!mysqli_stmt_prepare($stmt, $sql)) {
 				header("Location: mpsignup.html?error=sqlerror");
@@ -62,7 +65,7 @@ if (isset($_POST['signsubmit'])) {
 				} else{
 					$hashedpwd = password_hash($password, PASSWORD_DEFAULT);
 
-					mysqli_stmt_bind_param($stmt, "ssssssss", $username, $ueEmail, $hashedpwd, $firstName, $lastName, $middleInitial, $studentNumber, $MobileNumber);
+					mysqli_stmt_bind_param($stmt, "ssssssssss", $username, $ueEmail, $hashedpwd, $firstName, $lastName, $middleInitial, $studentNumber, $MobileNumber, $dateOfBirth, $yearLevel);
 					mysqli_stmt_execute($stmt);
 					header("Location: mpsignup.html?signup=success");
 					exit();
