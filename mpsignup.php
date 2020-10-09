@@ -15,8 +15,14 @@ if (isset($_POST['signsubmit'])) {
 	$checkBox = $_POST['termsBox'];
 	$dateOfBirth = $_POST['bday'];
 	$yearLevel = $_POST['yrlvl'];
-
-	if(!isset($_POST['termsBox'])){
+	$yearDOBString = substr($dateOfBirth, 0, 4);
+		
+	if (substr($dateOfBirth, 0, 4) > 2001 AND substr($dateOfBirth, -5, 2) > 9 AND substr($dateOfBirth, -2, 2) > 10 ){
+				header("Location: mpsignup.html?error=dateofbirthtooyoung");
+				exit();
+			}
+			
+	else if(!isset($_POST['termsBox'])){
 		header("Location: mpsignup.html?error=uncheckedcheckbox");
 		exit();
 	}
@@ -68,6 +74,7 @@ if (isset($_POST['signsubmit'])) {
 					mysqli_stmt_bind_param($stmt, "ssssssssss", $username, $ueEmail, $hashedpwd, $firstName, $lastName, $middleInitial, $studentNumber, $MobileNumber, $dateOfBirth, $yearLevel);
 					mysqli_stmt_execute($stmt);
 					header("Location: mpsignup.html?signup=success");
+
 					exit();
 				}
 			}
