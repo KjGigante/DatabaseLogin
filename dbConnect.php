@@ -1,17 +1,23 @@
-<?php
-
-	$servername = "localhost";
-	$dbusername = "root";
-	$dbpassword = "";
-
-	try{
-		$conn = new PDO("mysql:host = $servername;dbname=loginsignup",$dbusername,$dbpassword); //connection for mysql
-		$conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); //set the PDO error mode to exception
-			echo "Connected Successfully!"	;
+<?php //dhb.php
+	class config {
+		public static function connect(){
+			$servername = "localhost";
+			$dbusername = "root";
+			$dbpassword = "";
+			$dbname = "signupdb";
+			//database name is signupdb
+			
+			try {
+				$conn = new PDO ("mysql:host=$servername;dbname=$dbname",$dbusername,$dbpassword);
+				
+				$conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+				}
+			
+			catch (PDOException $e) {
+				echo "Connection Failed! Please try again." . $e->getMessaege();
+			}
+			return $conn;
+		}
 	}
-	catch(PDOException $e){
-		echo "Connection failed" . $e->getMessage();
-	}
-
 ?>
 
