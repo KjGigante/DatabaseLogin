@@ -1,94 +1,93 @@
 <?php
-if (isset($_POST['signsubmit'])) {
-
-	require 'dbh.php';
-
-	$username = $_POST['user'];
-	$ueEmail = $_POST['email'];
-	$password = $_POST['pass'];
-	$passwordRepeat = $_POST['passrpt'];
-	$firstName = $_POST['fName'];
-	$lastName = $_POST['lName'];
-	$middleInitial = $_POST['mName'];
-	$studentNumber = $_POST['studno'];
-	$MobileNumber = $_POST['phone'];
-	$checkBox = $_POST['termsBox'];
-	$dateOfBirth = $_POST['bday'];
-	$yearLevel = $_POST['yrlvl'];
-	$yearDOBString = substr($dateOfBirth, 0, 4);
+	require "dbConnect.php";
+	
+	if (isset($_POST['signsubmit'])){
 		
-	if (substr($dateOfBirth, 0, 4) > 2001 AND substr($dateOfBirth, -5, 2) > 9 AND substr($dateOfBirth, -2, 2) > 10 ){
-				header("Location: mpsignup.html?error=dateofbirthtooyoung");
-				exit();
-			}
-			
-	else if(!isset($_POST['termsBox'])){
-		header("Location: mpsignup.html?error=uncheckedcheckbox");
-		exit();
-	}
-
-	else if (!filter_var($ueEmail, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-		header("Location: mpsignup.html?error=invaliduidemail");
-		exit();
-	}
-	else if (!filter_var($ueEmail, FILTER_VALIDATE_EMAIL)) {
-		header("Location: mpsignup.html?error=invalidemail&uid=".$username);
-		exit();
-	}
-	else if (!preg_match("/^[a-zA-Z-_]*$/", $username)) {
-		header("Location: mpsignup.html?error=invaliduid&email=".$ueEmail);
-		exit();
-	}
-	else if ($password !== $passwordRepeat) {
-		header("Location: mpsignup.html?error=passwordcheck&email=".$ueEmail."&uid=".$username);
-		exit();
-	}
-
-	else{
-
-		$sql = "SELECT uidUsers FROM users WHERE uidUsers=?";
-		$stmt = mysqli_stmt_init($conn);
-		if (!mysqli_stmt_prepare($stmt, $sql)) {
-			header("Location: mpsignup.html?error=sqlerror");
-			exit();
-		} 
-		else{
-			mysqli_stmt_bind_param($stmt, "s", $username);
-			mysqli_stmt_execute($stmt);
-			mysqli_stmt_store_result($stmt);
-			$resultCheck = mysqli_stmt_num_rows($stmt);
-			if ($resultCheck > 0) {
-				header("Location: mpsignup.html?error=usertaken&email=".$ueEmail);
-				exit();
-			}
-			else{
-
-				$sql = "INSERT INTO users (uidUsers, emailUsers, pwdUsers, firstnameUsers, lastnameUsers, middleinitialUsers, studNoUsers, mobileNoUsers, dobUsers, yrUsers) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$stmt = mysqli_stmt_init($conn);
-				if (!mysqli_stmt_prepare($stmt, $sql)) {
-				header("Location: mpsignup.html?error=sqlerror");
-				exit();
-				} else{
-					$hashedpwd = password_hash($password, PASSWORD_DEFAULT);
-
-					mysqli_stmt_bind_param($stmt, "ssssssssss", $username, $ueEmail, $hashedpwd, $firstName, $lastName, $middleInitial, $studentNumber, $MobileNumber, $dateOfBirth, $yearLevel);
-					mysqli_stmt_execute($stmt);
-					header("Location: mpsignup.html?signup=success");
-
-					exit();
-				}
-			}
+		$firstName 		= $_POST['fName'];
+		$lastName 		= $_POST['lName'];
+		$middleInitial	= $_POST['mName'];
+		$studentNumber 	= $_POST['studno'];
+		$yearLevel 		= $_POST['yrlvl'];
+		$dateOfBirth 	= $_POST['bday'];
+		$mobileNumber 	= $_POST['phone'];
+		$ueEmail 		= $_POST['email'];
+		$username 		= $_POST['user'];
+		$password 		= $_POST['pass'];
+		$passwordRepeat = $_POST['passrpt'];
+		$checkBox 		= $_POST['termsBox'];
+		
+		if ($password == $passwordRepeat){//correct password; insertInput - values entered by the user
+			insertInput($firstName, $lastName, $middleInitial, $studentNumber, $yearLevel, 
+					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password, $passwordRepeat);	
 		}
-
+		
+		else if ($password !== $passwordRepeat){ //incorrect password
+			echo '<script>
+					alert("Warning: Password mismatch. Please try again.");
+				</script>';
+			echo '<script>
+						window.history.go(-1);
+					</script>';
+		}
+		
+		else { //for unique username
+			$uniqueUsername = "SELECT * FROM users WHERE userName=?";
+		
+			$query = $conn->prepare($uniqueUsername);
+			$query->bindParam(":userName",$username);
+			$query-execute();
+						
+				if ($query-> rowCount() == 1){
+					echo '<script>
+							alert("Unique username!");
+						  </script>';
+				}
+				else {
+					echo '<script>
+							alert("Warning: Username is already taken. Please try again.");
+						 </script>';	
+				}
+		}
+}//isset closing 
+	
+	function insertInput($firstName, $lastName, $middleInitial, $studentNumber, $yearLevel, 
+					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password, $passwordRepeat){
+	try {
+		$userInput = "INSERT INTO users (firstName, lastName, middleInitial, studentNumber, yearLevel, birthDate, 
+					 mobileNumber, emailAdd, userName, password) VALUES (?,?,?,?,?,?,?,?,?,?)"; 		
+					 
+		$query = $conn->prepare($userInput);
+		
+		$query->bindParam(":firstName",$firstName);
+		$query->bindParam(":lastName" ,$lastName);
+		$query->bindParam(":middleInitial",$middleInitial);
+		$query->bindParam(":studentNumber",$studentNumber);
+		$query->bindParam(":yearLevel", $yearLevel);
+		$query->bindParam(":birthDate",$dateOfBirth);
+		$query->bindParam(":mobileNumber",$mobileNumber);
+		$query->bindParam(":emailAdd",$ueEmail);
+		$query->bindParam(":userName",$userName);
+		$query->bindParam(":password",$password); 
+		
+		$query->execute(); 
+		
+			if ($query == true){
+				echo '<script>
+						alert ("Congratulations! You are already registered!");
+					 </script>';
+			}
+			else {
+				echo '<script>
+						alert ("Sorry. Registration failed. Please try again.");
+					 </script>'; 
+			}
+		
 	}
-	mysqli_stmt_close($stmt);
-	mysqli_close($conn);
+	catch (PDOException $e){
+			echo $userInput . $e->getMessage();	
+		}
+		$conn = null;
+	}
 
-
-}
-else{
-	header("Location: mpsignup.html");
-	exit();
-}
-
+		
 ?>
