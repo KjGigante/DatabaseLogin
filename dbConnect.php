@@ -1,5 +1,6 @@
 <?php //dabatabse
-
+class config {
+	public static function connect(){
 			$servername = "localhost";
 			$dbusername = "root";
 			$dbpassword = "";
@@ -16,5 +17,7 @@
 				echo "Connection Failed! Please try again." . $e->getMessaege();
 			}
 			return $conn;
+	}
+}
 
 ?>

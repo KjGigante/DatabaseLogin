@@ -53,6 +53,8 @@
 	function insertInput($firstName, $lastName, $middleInitial, $studentNumber, $yearLevel, 
 					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password, $passwordRepeat){
 	try {
+		require "dbConnect.php"
+		$conn = config::connect()
 		$userInput = "INSERT INTO users (firstName, lastName, middleInitial, studentNumber, yearLevel, birthDate, 
 					 mobileNumber, emailAdd, userName, password) VALUES (?,?,?,?,?,?,?,?,?,?)"; 		
 					 
