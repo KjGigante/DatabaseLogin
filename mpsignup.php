@@ -1,6 +1,6 @@
 <?php
 	require "dbConnect.php";
-	
+	$conn = config::connect();
 	if (isset($_POST['signsubmit'])){
 		
 		$firstName 		= $_POST['fName'];
@@ -16,10 +16,18 @@
 		$passwordRepeat = $_POST['passrpt'];
 		$checkBox 		= $_POST['termsBox'];
 		
-		if ($password == $passwordRepeat){//correct password; insertInput - values entered by the user
-			insertInput($firstName, $lastName, $middleInitial, $studentNumber, $yearLevel, 
-					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password, $passwordRepeat);	
+		if ($username == "" || $password == "" || $firstName == "" || $lastName == "" || $middleInitial == "" || $studentNumber == "" || $yearLevel == "" || $dateOfBirth == "" || $mobileNumber == "" || $ueEmail == "" || $passwordRepeat == ""){
+			return;
 		}
+		if(!checkUserNameExist($conn,$username)){
+			return;
+			exit();
+		}
+		if(!checkEmailExist($conn,$ueEmail)){
+			return;
+			exit();
+		}
+		
 		
 		else if ($password !== $passwordRepeat){ //incorrect password
 			echo '<script>
@@ -29,37 +37,20 @@
 						window.history.go(-1);
 					</script>';
 		}
-		
-		else { //for unique username
-			$uniqueUsername = "SELECT * FROM users WHERE userName=?";
-		
-			$query = $conn->prepare($uniqueUsername);
-			$query->bindParam(":userName",$username);
-			$query-execute();
-						
-				if ($query-> rowCount() == 1){
-					echo '<script>
-							alert("Unique username!");
-						  </script>';
-				}
-				else {
-					echo '<script>
-							alert("Warning: Username is already taken. Please try again.");
-						 </script>';	
-				}
+		else if ($password == $passwordRepeat){//correct password; insertInput - values entered by the user
+			insertInput($firstName, $lastName, $middleInitial, $studentNumber, $yearLevel, 
+					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password, $passwordRepeat);	
 		}
+		
+		
 }//isset closing 
 	
 	function insertInput($firstName, $lastName, $middleInitial, $studentNumber, $yearLevel, 
-					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password, $passwordRepeat){
+					$dateOfBirth, $mobileNumber, $ueEmail, $username, $password){
 	try {
-		require "dbConnect.php"
-		$conn = config::connect()
-		$userInput = "INSERT INTO users (firstName, lastName, middleInitial, studentNumber, yearLevel, birthDate, 
-					 mobileNumber, emailAdd, userName, password) VALUES (?,?,?,?,?,?,?,?,?,?)"; 		
-					 
-		$query = $conn->prepare($userInput);
-		
+		$conn = config::connect();
+		$userInput = "INSERT INTO users (firstnameUsers, lastnameUsers, middleinitialUsers, studNoUsers, yrUsers, dobUsers, mobileNoUsers, emailUsers, uidUsers, pwdUsers) VALUES (:firstName,:lastName,:middleInitial,:studentNumber,:yearLevel,:birthDate,:mobileNumber,:emailAdd,:userName,:password)"; 
+		$query = $conn->prepare($userInput);		
 		$query->bindParam(":firstName",$firstName);
 		$query->bindParam(":lastName" ,$lastName);
 		$query->bindParam(":middleInitial",$middleInitial);
@@ -68,7 +59,7 @@
 		$query->bindParam(":birthDate",$dateOfBirth);
 		$query->bindParam(":mobileNumber",$mobileNumber);
 		$query->bindParam(":emailAdd",$ueEmail);
-		$query->bindParam(":userName",$userName);
+		$query->bindParam(":userName",$username);
 		$query->bindParam(":password",$password); 
 		
 		$query->execute(); 
@@ -89,6 +80,39 @@
 			echo $userInput . $e->getMessage();	
 		}
 		$conn = null;
+	}
+	function checkUserNameExist($conn, $username){
+		$query = $conn->prepare("
+			SELECT * FROM users WHERE uidUsers=:username
+
+			");
+
+		$query->bindParam(":username",$username);
+		$query->execute(); 
+		//check
+		if($query->rowCount() == 1){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	function checkEmailExist($conn, $ueEmail){
+		$query = $conn->prepare("
+			SELECT * FROM users WHERE emailUsers=:emailAdd
+
+			");
+
+		$query->bindParam(":emailAdd",$ueEmail);
+		$query->execute(); 
+
+		//check
+		if($query->rowCount() == 1){
+			return false;
+		}
+		else{
+			return true;
+		}
 	}
 
 		
