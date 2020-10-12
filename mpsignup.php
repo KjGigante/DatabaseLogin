@@ -20,11 +20,36 @@
 			return;
 		}
 		if(!checkUserNameExist($conn,$username)){
+			echo '<script>
+					alert("Warning: Username already exists. Please try again.");
+				</script>';
+			echo '<script>
+						window.history.go(-1);
+					</script>';
 			return;
 			exit();
 		}
 		if(!checkEmailExist($conn,$ueEmail)){
+			echo '<script>
+					alert("Warning: E-mail already exists. Please try again.");
+				</script>';
+			echo '<script>
+						window.history.go(-1);
+					</script>';
 			return;
+			header("Location: mpsignup.html?error=uncheckedcheckbox");
+			exit();
+		}
+		else if(!isset($_POST['termsBox'])){
+			echo '<script>
+						alert("Warning: Please agree to terms and conditions");
+					</script>';
+			echo '<script>
+							window.history.go(-1);
+						</script>';
+			
+			return;
+			header("Location: mpsignup.html?error=uncheckedcheckbox");
 			exit();
 		}
 		
