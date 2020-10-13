@@ -16,7 +16,7 @@
 				<div class="column">
 					<form  id = "signupform" class = "userinput" action = "mpsignup.php" method = "POST">
 					<label for = "lname" class = "fieldname" ><b>LAST NAME</b> </label>
-						<input type= "text" class = "fieldinput" name = "lName" pattern ="[A-Za-z\s]{1,}" id = "lName" maxlength = "15" required>
+						<input type= "text" class = "fieldinput" name = "lName" id="lName">
 					<label for = "fname" class = "fieldname" ><b>FIRST NAME</b> </label>
 						<input type= "text" class = "fieldinput" name = "fName" pattern ="[A-Za-z\s]{1,}" id = "fName" maxlength = "15" required>
 					<label for = "mname" class = "fieldname" ><b>MIDDLE INITIAL</b> </label>
@@ -42,7 +42,7 @@
 				</div>
 				<div class = "column">
 					<label for = "username" class = "fieldname" ><b>USERNAME</b> </label>
-						<input type = "text" class = "fieldinput" name = "user" id = "user" pattern = "[A-Za-z-_]{1,15]" maxlength = "15" required>
+						<input type = "text" class = "fieldinput" name = "user" id = "user" pattern = "[A-Za-z-_]{1,15}" maxlength = "15" required>
 					<label for = "password" class = "fieldname" ><b>PASSWORD</b> </label>
 						<input type="password" class = "fieldinput" name = "pass" id = "pass"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" maxlength = "20" required>
 					<label for = "pwdrpt" class = "fieldname" ><b>CONFIRM PASSWORD</b> </label>
@@ -57,10 +57,10 @@
 							vero eros et accumsan et iusto odio dignissim qui blandit praesent 
 							luptatum zzril delenit augue duis dolore te feugait nulla f
 							imperdiet doming id quod mazim placerat facer possim assum.</p>
-						<button type="submit" name = "signsubmit" class = "signbtn" onclick = "
-						validateAll()"><b>REGISTER</b></button>
+						<button id="signsubmit" name = "signsubmit" class = "signbtn" onclick="return myFunction()"><b>REGISTER</b></button>
 				</div>	
 			</form>	
+			
 			</div>		
 		</div>
 		</div>	
