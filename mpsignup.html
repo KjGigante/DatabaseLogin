@@ -14,15 +14,15 @@
 			<h1>ACCOUNT REGISTRATION</h1>
 				<div class="row">
 				<div class="column">
-					<form  id = "signupform" class = "userinput" action = "mpsignup.php" method = "POST">
+					<form  id = "signupform" class = "userinput" action = "mps//ignup.php" method = "POST">
 					<label for = "lname" class = "fieldname" ><b>LAST NAME</b> </label>
-						<input type= "text" class = "fieldinput" name = "lName" id="lName">
+						<input type= "text" class = "fieldinput" name = "lName" id="lName" required>
 					<label for = "fname" class = "fieldname" ><b>FIRST NAME</b> </label>
-						<input type= "text" class = "fieldinput" name = "fName" pattern ="[A-Za-z\s]{1,}" id = "fName" maxlength = "15" required>
+						<input type= "text" class = "fieldinput" name = "fName" id = "fName"  required>
 					<label for = "mname" class = "fieldname" ><b>MIDDLE INITIAL</b> </label>
-						<input type= "text" class = "fieldinput" name = "mName" pattern ="[A-Za-z]{1,2}"id = "mName" maxlength = "2" title="e.g. Dela Cruz DC" >
+						<input type= "text" class = "fieldinput" name = "mName" id = "mName"  title="e.g. Dela Cruz DC" >
 					<label for = "studno" class = "fieldname" ><b>STUDENT NUMBER</b> </label>
-						<input type= "text" class = "fieldinput" name = "studno" id = "studno" pattern ="[0-9]{11}" maxlength = "11" required title="e.g. 20160130518">
+						<input type= "text" class = "fieldinput" name = "studno" id = "studno"  required title="e.g. 20160130518">
 					<label for="year" type = "text" class = "fieldname"><b>YEAR LEVEL</b></label>
 							<select name = "yrlvl" class = "fieldinput" id = "yrlvl" required>
 								<option value = ""></option>
@@ -33,7 +33,7 @@
 								<option value="5">5 </option>
 							</select>
 					<label for = "birthday" class = "fieldname" ><b>BIRTH DATE</b> </label>
-						<input type="date" class = "fieldinput" name = "bday" id = "bday" min="1922-01-01" max="2002-10-10" required title="Must be 18 years old or older">
+						<input type="date" class = "fieldinput" name = "bday" id = "bday" required title="Must be 18 years old or older">
 					<label for="phone" class = "fieldname" ><b>MOBILE NUMBER</b> </label>
 					<div class="plusSixThree"><p>+63</p></div>
 						<input type="tel" class = "fieldNumber" id="phone" name="phone" maxlength = "10" pattern="[0-9]{10}" required title="+63XXXXXXXXXX">
