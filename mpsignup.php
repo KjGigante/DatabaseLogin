@@ -19,6 +19,15 @@
 		if ($username == "" || $password == "" || $firstName == "" || $lastName == "" || $middleInitial == "" || $studentNumber == "" || $yearLevel == "" || $dateOfBirth == "" || $mobileNumber == "" || $ueEmail == "" || $passwordRepeat == ""){
 			return;
 		}
+		if (substr($dateOfBirth, 0, 4) > 2001 AND substr($dateOfBirth, -5, 2) > 9 AND substr($dateOfBirth, -2, 2) > 10 ){
+				echo "". date(Y) ."";
+				'<script>
+					alert("Warning: Invalid date of birth. Must be at least 18 years. Please try again.");
+				</script>';
+			echo '<script>
+						window.history.go(-1);
+					</script>';
+		}
 		if(!checkUserNameExist($conn,$username)){
 			echo '<script>
 					alert("Warning: Username already exists. Please try again.");

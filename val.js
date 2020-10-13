@@ -1,11 +1,4 @@
-function newFunction(){
-	alert('Help');
-	return false;
-}
-function test(){
-	alert ('line2');
 
-}
 function myFunction(){
 	var lNameValue = document.getElementById('lName').value;
 	var fNameValue = document.getElementById('fName').value;
@@ -17,6 +10,7 @@ function myFunction(){
 	var userValue = document.getElementById('user').value;
 	var passValue = document.getElementById('pass').value;
 	var passrptValue = document.getElementById('passrpt').value;
+	var termBox = document.getElementById('termsBox');
 	var letters = /^[A-Za-z]*$/;
 	var lettersSpace = /^[A-Za-z\s]*$/;
     var numbers = /^[0-9]+$/;
@@ -46,7 +40,6 @@ function myFunction(){
     }
     if (studnoValue.length>11||studnoValue.length<11) {
     	alert('Error: Student number. Must be 11 characters');
-    	alert(bdayValue);
     	return false;
     }
     if (!studnoValue.match(numbers)){
@@ -85,6 +78,15 @@ function myFunction(){
     	alert('Error: Password. 8-15 characters only');
     	return false;
     }
+    if (passValue != passrptValue){
+    	alert('Error. Password mismatch');
+    	return false;
+    }
+    if (termBox.checked == false) {
+    	alert('Error. Please accept terms and conditions');
+    	return false;
+    }
+    
 
     
     return true;
