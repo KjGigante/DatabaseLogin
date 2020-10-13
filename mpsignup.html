@@ -36,15 +36,15 @@
 						<input type="date" class = "fieldinput" name = "bday" id = "bday" required title="Must be 18 years old or older">
 					<label for="phone" class = "fieldname" ><b>MOBILE NUMBER</b> </label>
 					<div class="plusSixThree"><p>+63</p></div>
-						<input type="tel" class = "fieldNumber" id="phone" name="phone" maxlength = "10" pattern="[0-9]{10}" required title="+63XXXXXXXXXX">
+						<input type="tel" class = "fieldNumber" id="phone" name="phone" required title="+63XXXXXXXXXX">
 					<label for = "email" class = "fieldname" ><b>UE E-MAIL ADDRESS</b> </label>
-						<input type= "email" class = "fieldinput" name = "email" id = "email" pattern="[a-z0-9.]+[@ue.edu.ph]{10}" required title="yourUEemail@ue.edu.ph">							
+						<input type= "email" class = "fieldinput" name = "email" id = "email"  required title="yourUEemail@ue.edu.ph">							
 				</div>
 				<div class = "column">
 					<label for = "username" class = "fieldname" ><b>USERNAME</b> </label>
-						<input type = "text" class = "fieldinput" name = "user" id = "user" pattern = "[A-Za-z-_]{1,15}" maxlength = "15" required>
+						<input type = "text" class = "fieldinput" name = "user" id = "user" required>
 					<label for = "password" class = "fieldname" ><b>PASSWORD</b> </label>
-						<input type="password" class = "fieldinput" name = "pass" id = "pass"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" maxlength = "20" required>
+						<input type="password" class = "fieldinput" name = "pass" id = "pass"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 					<label for = "pwdrpt" class = "fieldname" ><b>CONFIRM PASSWORD</b> </label>
 						<input type="password" class = "fieldinput" name = "passrpt" id = "passrpt" required title="Repeat password">
 						<input type = "checkbox" id = "termsBox" name="termsBox" class = "check"><span>TERMS AND CONDITIONS</span>
