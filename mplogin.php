@@ -15,7 +15,7 @@ require "dbConnect.php";
  	);
  	$count = $statement->rowCount();
  	if($count > 0){
- 		header('location:newsuccuss.html');
+ 		header('location:Welcome!.html');
  	}else
  	{
  		echo '<script>
